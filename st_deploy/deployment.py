@@ -14,7 +14,14 @@ except:
   show_accuracy = False
 
 st.set_page_config(page_title='How did you rest today?', layout='centered')
-st.title = ('Sleep Quality Predictor')
+
+st.markdown(
+    """
+    <h1 style='text-align: center; font-size: 50px; color: #4CAF50;'>Sleep Quality Predictor</h1>
+    """,
+    unsafe_allow_html=True
+)
+
 st.markdown('Curious about your sleep quality? Just fill in a few details and let this app predict how well you’re sleeping!')
 
 age = st.number_input("Age", min_value=0, max_value=120, value=25)
@@ -79,3 +86,12 @@ if st.button("Predict Sleep Quality 😴"):
     prediction = model.predict(input_df)[0]
 
     st.success(f"🛌 Predicted Sleep Quality: {prediction}")
+
+if show_accuracy:
+        from sklearn.metrics import accuracy_score
+
+        y_pred = model.predict(x_test)
+        score = accuracy_score(y_test, y_pred)
+        st.metric('Accuracy score:', f"{score:.2f}")
+else:
+        st.info('Test data not available to evaluate the model.')
