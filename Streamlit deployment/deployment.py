@@ -3,11 +3,11 @@ import streamlit as st
 from joblib import load
 from sklearn.metrics import accuracy_score
 
-model = load('sleep_quality_predictor.joblib')
+model = load('sleep_quality_model.joblib')
 
 try:
-  x_test = pd.read_csv()
-  y_test = pd.read_csv()
+  x_test = pd.read_csv('Streamlit deployment/x_test.csv')
+  y_test = pd.read_csv('Streamlit deployment/y_test.csv')
   y_test = y_test.squeeze()
   show_accuracy = True
 except:
@@ -41,7 +41,6 @@ nap_duration = st.number_input("Nap Duration (hours)", min_value=0.0, max_value=
 
 room_environment = st.slider("Room Environment (1–10)", min_value=1, max_value=10, value=5)
 
-# Final input array (excluding target columns like Sleep Quality and Sleep Quality Category)
 input_data = [
     age,
     gender_encoded,
@@ -58,3 +57,25 @@ input_data = [
     nap_duration,
     room_environment
 ]
+
+if st.button("Predict Sleep Quality 😴"):
+    input_df = pd.DataFrame([{
+        'Age': age,
+        'Gender': gender_encoded,
+        'Sleep Start Time': sleep_start,
+        'Sleep End Time': sleep_end,
+        'Total Sleep Hours': total_sleep,
+        'Exercise (mins/day)': exercise,
+        'Caffeine Intake (mg)': caffeine,
+        'Screen Time Before Bed (mins)': screen_time,
+        'Work Hours (hrs/day)': work_hours,
+        'Productivity Score': productivity,
+        'Mood Score': mood,
+        'Stress Level': stress,
+        'Nap Duration': nap_duration,
+        'Room Environment': room_environment
+    }])
+
+    prediction = model.predict(input_df)[0]
+
+    st.success(f"🛌 Predicted Sleep Quality: {prediction}")
