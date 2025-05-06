@@ -3,11 +3,11 @@ import streamlit as st
 from joblib import load
 from sklearn.metrics import accuracy_score
 
-model = load('sleep_quality_model.joblib')
+model = load('sleep_model.joblib')
 
 try:
-  x_test = pd.read_csv('Streamlit deployment/x_test.csv')
-  y_test = pd.read_csv('Streamlit deployment/y_test.csv')
+  x_test = pd.read_csv('st_deploy/x_test.csv')
+  y_test = pd.read_csv('st_deploy/y_test.csv')
   y_test = y_test.squeeze()
   show_accuracy = True
 except:
