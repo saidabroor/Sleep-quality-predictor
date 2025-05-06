@@ -86,6 +86,12 @@ The best-performing model (LightGBM) is:
 
 ---
 
+## ⚠️ Known limitations:
+
+Predictions tend to skew towards "Poor" or "Okay" — model needs further tuning or balancing.
+
+Accuracy score is calculated in training, but not yet displayed in the deployed app (small Streamlit issue I'm fixing soon).
+
 ## Contact
 
 Feel free to reach out if you have any questions or suggestions:
