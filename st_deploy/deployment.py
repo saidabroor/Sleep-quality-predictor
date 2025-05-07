@@ -3,7 +3,14 @@ import streamlit as st
 from joblib import load
 from sklearn.metrics import accuracy_score
 
-model = load('sleep_model.joblib')
+# model = load('sleep_model.joblib')
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, 'sleep_model.joblib')
+model = load(model_path)
+
 
 try:
   x_test = pd.read_csv('st_deploy/x_test.csv')
